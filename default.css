@@ -30,9 +30,24 @@
 	
 	ol, ul
 	{
+        text-align:left;
 		/*padding: 0;*/
 		/*list-style: none;*/
 	}
+
+    li
+    {
+        line-height: 180%;
+    }
+
+    code
+    {
+        padding: 2px 4px;
+        font-size: 90%;
+        color: rgb(199, 75, 70);
+        background-color: rgba(231, 249, 236, 0.5);
+        border-radius: 4px;
+    }
 
     p.myText
     {

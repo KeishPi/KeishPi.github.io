@@ -106,12 +106,15 @@ Released   : 20140309
 			<div class="title">
 				<h2>Getting Started</h2>
 				<span class="byline">Requesting an API Key</span> </div>
-			<p>The use the NY Times API in your application you must first get an
+			<p> The use the NY Times API in your application you must first get an
                 <a href="https://developer.nytimes.com/signup">API key</a>.
                 This key allows the NY Times to monitor usage levels and make sure developers are complying with
                 the Terms of Use.  Note that if you plan on using more than one of the NY Times APIs, you'll need to
                 request a separate key for each one. We will use this API key in each query we make (more on this later).</p><br>
             <img src="Images/API_Key.png"><br>
+			<p>After completing and submitting the form above you should receive an email containing your very own API key!
+                You are allowed 1,000 API calls per day and 5 calls per second, which should be more than enough for our needs.
+                Be careful not to share your key with anyone or make it public as it identifies you as the developer.</p>
 		</div>
 
 <!--
@@ -120,17 +123,108 @@ Released   : 20140309
 		</ul>
 -->
 	</div>
-
+    <!------------ USING THE CONSOLE TOOL SECTION ------------->
     <div id="page" class="container">
 		<div class="title">
-			<h2>Nulla luctus eleifend</h2>
-			<span class="byline">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</span> </div>
-		<p> Vivamus fermentum nibh in augue. Praesent a lacus at urna congue rutrum. Nulla enim eros nibh. Duis enim nulla, luctus eu, dapibus lacinia, venenatis id, quam. Vestibulum imperdiet, magna nec eleifend rutrum, nunc lectus vestibulum velit, euismod lacinia quam nisl id lorem. Quisque erat. Vestibulum pellentesque, justo mollis pretium suscipit, justo nulla blandit libero, in blandit augue justo quis nisl. Fusce mattis viverra elit. Fusce quis tortor.</p>
-		<ul class="actions">
+			<h2>Article Search API</h2>
+			<span class="byline">Using the Console Tool</span> </div>
+		<p> Each NY Times API features a nifty Console Tool that allows you to build a query, submit it, and inspect the resulting
+            response.  This is especially useful for novice programmers as it allows them to validate the query construction and
+            response before putting it in their code.</p>
+        <p> To get to the Console, click on the Article Search API <a href="https://developer.nytimes.com">here</a>:</p>
+        <img src="Images/ArticleSearchClick.png" width="100%"><br>
+        <p> Then click on "Console" in the upper right corner:</p>
+        <img src="Images/ConsoleClick.png" width="100%"><br>
+        <p> Now you should see a page that looks like this:</p>
+        <img src="Images/ConsoleScreen.png" width="100%"><br>
+        <p> Now let's break down this page to better understand how to build a query and interpret the response. <br>
+            On the right side of the screen we see a "Credentials" section and a field for your apikey.  Go ahead and
+            paste your own key into this field. We'll come back to the "Sample Code" section in just a bit.  The third section
+            called "Parameters" includes various fields you can use to narrow your search results.  You can get details on
+            the parameters on their <a href="https://developer.nytimes.com/article_search_v2.json#/Documentation/GET/articlesearch.json">Documentation</a>
+            page, or by clicking on a particular parameter field, but for now let's just focus on the first parameter, q.
+            This is a string that represents your search query term and searches the article, body, headline, and byline.
+            You'll notice that I entered the word "feminism" in this field. Now you should see a response to your query
+            automatically generated on the left side of the screen.<br> Congrats! You just made your first query to the NY
+            Times API! I recommend tinkering with this useful tool to get an idea of the types of queries you can make and
+            verify that the responses generated are what you want. In the next few sections we'll get into the nitty gritty
+            of how the query works and interpreting the response. </p>
+<!--
+        <ul class="actions">
 			<li><a href="#" class="button">Etiam posuere</a></li>
 		</ul>
+-->
 	</div>
+    <!------------ QUERY/GET REQUEST SECTION ------------->
+    <div id="featured">
+        <div class="container">
+            <div class="title">
+                <h2>What's in a Query?</h2>
+                <span class="byline">Understanding the GET Request</span> </div>
+            <p> Now that you've gotten your feet wet with the Console Tool and have an idea of what kind of queries you can make,
+            let's try to understand what's happening under the hood.</p>
+            <p> Remember the "Sample Code" section we skipped over in the last section?  Let's take a look at that now.<br>
+                Continuing our previous example, let's say we just want to do a simple query for all articles that contain the
+                word "feminism" and we want to sort our results by newest publication date (the default is to sort by relevance to
+                the search term - q).  Your Console should look something like this: </p>
+            <img src="Images/SimpleQuery.png" width="100%"><br>
+            <p>What is all that gibberish?  Let's interpret it line by line.<br></p>
+                <ul>
+                    <li> Generally all queries will follow this format: </li>
+                    <code> endpointURL?key=value&key=value...&api-key=### </code>
+                    <li> This is the endpoint (base URL) of our API call, which we have saved to a variable called "url".
+                         It is a required part of your query along with your API key. <br></li>
+                    <code> var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json" </code>
+                    <li> After our endpoint URL we append a "?" to the end, then each parameter is appended to that in their respective
+                        key-value pair in the format <code>&key=value</code>.  This type of format is called a
+                        <a href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier">URI</a> structure.  It's just a string of characters
+                        used to identify a resource, which enables interaction with representations of the resource over a network. <br></li>
+                    <code> url += '?' + $.param({<br>
+                        'api-key': "Your API Key Here",<br>
+                        'q': "feminism",<br>
+                        'sort': "newest"<br>
+                        }); </code>
+                    <li> Here is what the same GET request will look like as a query string: </li>
+                    <code> https://api.nytimes.com/svc/search/v2/articlesearch.json?q=feminism&sort=newest&api-key=#### </code>
+                    <li> Note the endpoint URL, followed by a ?, then the q parameter and it's value, the sort parameter and it's value <br>
+                         and finally your own API key at the end. </li>
+                    <li> The rest of the sample code simply says that we are making a GET request and once we get the results back from the
+                         NY Times server, we want to display it to the screen. </li>
+                    <li> Now you've created a valid GET request!  You can either use the Javascript sample code to send the request or simply
+                         paste your query string into a browser. In the next section we'll look at the NY Time response we receive back from our request.</li>
+                </ul>
+        </div>
+    </div>
+    <!------------ INTERPRETING THE RESPONSE SECTION ------------->
+    <div id="page" class="container">
+        <div class="title">
+            <h2>Interpreting the Response</h2>
+            <span class="byline">What the heck is a JSON?</span> </div>
+        <p> Now that you've successfully sent your request, you'll receive a response in JSON format.  What is
+            <a href="http://www.json.org/">JSON</a>?  It stands for JavaScript Object Notation and is similar to an object and array structure
+            in that it is a collection of name/value pairs and is an ordered list of values. </p>
+        <p> This is what a portion of the response from our example request above looks like: </p>
+        <img src="Images/rawJSON.png" width="100%"><br>
+        <p> But this is rather difficult to read. So if you want it nicely formatted you can download this Chrome extension
+        <a href="https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa?hl=en">JSON Formatter</a> and it will
+            look like this instead: </p>
+        <img src="Images/formattedJSON.png" width="100%"><br>
+        <p> Much better!<br> Now collapse all the trees by clicking on the arrows, so it looks like this: </p>
+        <img src="Images/minTrees.png" width="100%"><br>
+        <p> So the APIs response is just an object with a response property, a status property, and a copyright property.  If we expand the
+            response property we see that it contains two more properties: meta and docs. Note that the order isn't guaranteed, so you may see
+            your results in a slightly different order.
+        <img src="Images/metaDocs.png" width="100%"><br>
+        <p> Meta will have information about the API query like how many matches ("hits") I got from my query.  Docs are the articles that were returned.
+            You'll notice next to docs it says "10 items".  The Article Search API only returns a max of 10 results at a time, so you'll need to use
+            the page query parameter we saw in the Console and documentation to paginate through the results.  You can paginate up to 100 pages
+            (1,000 results).  If you have too many results you can filter them further by using a date range or another parameter. Docs is an array,
+            so each element of the array is one article, which each have their own properties. </p>
+        <img src="Images/docsArray.png" width="100%"><br>
+
+    </div>
 </div>
+
 <div id="copyright" class="container">
 	<p>&copy; Untitled. All rights reserved. | Photos by <a href="http://fotogrph.com/">Fotogrph</a> | Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
 </div>
