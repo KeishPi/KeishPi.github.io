@@ -1,15 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!--
-Design by TEMPLATED
-http://templated.co
-Released for free under the Creative Commons Attribution License
 
-Name       : PlainDisplay 
-Description: A two-column, fixed-width design with dark color scheme.
-Version    : 1.0
-Released   : 20140309
-
--->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -162,16 +152,16 @@ Released   : 20140309
                 <h2>What's in a Query?</h2>
                 <span class="byline">Understanding the GET Request</span> </div>
             <p> Now that you've gotten your feet wet with the Console Tool and have an idea of what kind of queries you can make,
-            let's try to understand what's happening under the hood.</p>
+                let's try to understand what's happening under the hood.</p>
             <p> Remember the "Sample Code" section we skipped over in the last section?  Let's take a look at that now.<br>
                 Continuing our previous example, let's say we just want to do a simple query for all articles that contain the
                 word "feminism" and we want to sort our results by newest publication date (the default is to sort by relevance to
                 the search term - q).  Your Console should look something like this: </p>
             <img src="Images/SimpleQuery.png" width="100%"><br>
-            <p>What is all that gibberish?  Let's interpret it line by line.<br></p>
+            <p> What is all that gibberish?  Let's interpret the Javascript line by line.<br></p>
                 <ul>
                     <li> Generally all queries will follow this format: </li>
-                    <code> endpointURL?key=value&key=value...&api-key=### </code>
+                    <code> endpointURL?key1=value1&key2=value2&keyn=valuen...&api-key=### </code>
                     <li> This is the endpoint (base URL) of our API call, which we have saved to a variable called "url".
                          It is a required part of your query along with your API key. <br></li>
                     <code> var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json" </code>
@@ -184,7 +174,7 @@ Released   : 20140309
                         'q': "feminism",<br>
                         'sort': "newest"<br>
                         }); </code>
-                    <li> Here is what the same GET request will look like as a query string: </li>
+                    <li> Here is what the same GET request will look like as a full query string: </li>
                     <code> https://api.nytimes.com/svc/search/v2/articlesearch.json?q=feminism&sort=newest&api-key=#### </code>
                     <li> Note the endpoint URL, followed by a ?, then the q parameter and it's value, the sort parameter and it's value <br>
                          and finally your own API key at the end. </li>
@@ -205,28 +195,85 @@ Released   : 20140309
             in that it is a collection of name/value pairs and is an ordered list of values. </p>
         <p> This is what a portion of the response from our example request above looks like: </p>
         <img src="Images/rawJSON.png" width="100%"><br>
-        <p> But this is rather difficult to read. So if you want it nicely formatted you can download this Chrome extension
+        <p> But this is rather difficult to read. So if you want it nicely formatted in your browser you can download this Chrome extension
         <a href="https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa?hl=en">JSON Formatter</a> and it will
             look like this instead: </p>
         <img src="Images/formattedJSON.png" width="100%"><br>
         <p> Much better!<br> Now collapse all the trees by clicking on the arrows, so it looks like this: </p>
         <img src="Images/minTrees.png" width="100%"><br>
-        <p> So the APIs response is just an object with a response property, a status property, and a copyright property.  If we expand the
-            response property we see that it contains two more properties: meta and docs. Note that the order isn't guaranteed, so you may see
-            your results in a slightly different order.
+        <p> So the APIs response is just an object with a response property, a status property ("OK" means your query was successful), and a
+            copyright property.  If we expand the response property we see that it contains two more properties: <code>meta</code>
+            and <code>docs</code>. Note that the order isn't guaranteed, so you may see your results in a slightly different order.</p>
         <img src="Images/metaDocs.png" width="100%"><br>
-        <p> Meta will have information about the API query like how many matches ("hits") I got from my query.  Docs are the articles that were returned.
-            You'll notice next to docs it says "10 items".  The Article Search API only returns a max of 10 results at a time, so you'll need to use
-            the page query parameter we saw in the Console and documentation to paginate through the results.  You can paginate up to 100 pages
-            (1,000 results).  If you have too many results you can filter them further by using a date range or another parameter. Docs is an array,
-            so each element of the array is one article, which each have their own properties. </p>
+        <p> <code>meta</code> is an object which contains three properties that have information about the API query. </p>
+            <ul>
+                <li><code>hits</code>: the number of search results</li>
+                <li><code>time</code>: the time it took to get the results</li>
+                <li><code>offset</code>: the results page we are currently on</li>
+            </ul>
+        </p>
+        <p> <code>docs</code> is an array containing the articles that were returned.  You'll notice next to docs it says "10 items".
+            The Article Search API only returns a max of 10 results at a time, so you'll need to use the page query parameter
+            we saw in the Console and documentation to paginate through the results.  You can paginate up to 100 pages (1,000 results).
+            If you have too many results you can filter them further by using a date range or another parameter. In the docs array,
+            each element of the array is one article, which each have their own properties. </p>
         <img src="Images/docsArray.png" width="100%"><br>
-
+        <p> Now if we expand the docs tree we can see it's properties.  Say I want to access the headline property in docs so I can display or
+            print it.  Then in Javascript I would use dot notation to access the values like this: <code>response.docs.articles[0].headline.main</code>.
+            This just references each "tree" in our object to get at the property we want.  In the next section we'll walk through an example to
+            tie everything together. </p>
+        <img src="Images/docsProperties.png" width="100%"><br>
+    </div>
+    <!------------ EXAMPLE SECTION ------------->
+    <div id="featured">
+        <div class="container">
+            <div class="title">
+                <h2>Tying it All Together</h2>
+                <span class="byline">An Example Using the NY Times Article Search API</span> </div>
+            <p> We've covered all the bits and pieces of the NY Times API but let's walk through an example. </p>
+            <p> Previously, we built a query string and sent it as a GET request by pasting the string into a URL.
+                Though convenient for one request, it's not very practical if you want to make several requests.
+                We showed a glimpse of some Javascript that would send the request for you instead, so let's expand on that. </p>
+            <p> This is a GET request in Javascript, similar to the one we saw in the previous section.  Feel free to use
+                either one, I just think the one below is more readable than the Console Javascript.  You can see we save
+                each component of the GET request into a variable, so you don't need to interpret a long query string each
+                time you want to change something.  This type of request (called a synchronous request) waits for the request
+                to complete before doing anything with the response. But this by itself still doesn't do much- it simply logs
+                to the console the JSON object response from the API.  If you wanted to change the search parameters you would
+                need to manually change the code each time. </p>
+            <iframe width="100%" height="300" src="//jsfiddle.net/keishPi/py0qmgxv/embedded/js/dark/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+            <p> Now let's go a step further and make a simple form that the user can use to enter their own search parameters, submit, then
+                receive results from the API. </p>
+            <iframe width="100%" height="300" src="//jsfiddle.net/sn71fkkd/embedded/js,html/dark/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>            <p> Let's break down the code above.  We're still making a request object as before, but we also register a listener
+                on the request's load event. This allows us to make an asynchronous request.  Note that we also changed the
+                last parameter of the <code>req.open</code> line from false to true.  In the first example, our code
+                would pause and wait for the request to finish.  With an asynchronous request we can continue to do work while
+                we wait for that function to return.  We also added a second event listener to the forms submit button. So
+                when the user clicks submit that code is executed.  This is what the webpage looks like after clicking submit: </p>
+            <img src="Images/GETUserForm.png" width="100%"><br>
+            <p> This is a bit better, but we still display the response in JSON format, which isn't very reader friendly.  Remember the
+                dot notation structure we referenced in the last section to access the properties we wanted?  Let's use that to
+                make this easier to read.  In fact, let's go even further and say we only want to print out the headlines of
+                the articles that are returned.</p>
+            <iframe width="100%" height="300" src="//jsfiddle.net/keishPi/gu7xey5m/embedded/js,html/dark/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+            <p> We know the articles are going to be in the <code>data.response.docs section</code> so we made a variable
+                "data" to store that path. We also added an element to our HTML with an ID of 'headline', then assigned that
+                variable's textContent property to <code>articles[0].headline.main</code>.</p>
+            <img src="Images/headlineForm.png" width="100%"><br>
+            <p> For the sake of variety this time I searched "Hawaii".  This gives us the headline, but only of the first article.
+                Remember "articles" is an array, so by using bracket notation we are only accessing the first article by saying
+                <code>articles[0]</code>.  Well that's great, but we want all the headlines right? So one more step!  Let's
+                get all the headlines returned and let's also print a snippet from each article. </p>
+            <iframe width="100%" height="300" src="//jsfiddle.net/keishPi/f0pg1hzr/embedded/js,html/dark/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+            <p> A for loop was added to iterate through all the articles (remember we only get 10 at a time), then we created a new
+                "h1" element and "p" element at each loop for the headline and snippet, respectively.  TA DA! </p>
+            <img src="Images/hawaiiHeadlineSnippet.png" width="100%"><br>
+        </div>
     </div>
 </div>
 
 <div id="copyright" class="container">
-	<p>&copy; Untitled. All rights reserved. | Photos by <a href="http://fotogrph.com/">Fotogrph</a> | Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
+	<p>&copy; Untitled. All rights reserved. | Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
 </div>
 </body>
 </html>
