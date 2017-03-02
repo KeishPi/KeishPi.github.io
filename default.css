@@ -62,6 +62,7 @@
 		
 		ul.actions li
 		{
+            list-style: none;
 		}
 	
 	p

@@ -18,7 +18,7 @@
 	<div id="header-wrapper">
 	<div id="header" class="container">
 		<div id="logo">
-			<h1><a href="#">The New York Times API</a></h1>
+			<h1 <a href="#">The New York Times API</a> </h1>
 		</div>
 <!--
         <div id="menu">
@@ -41,7 +41,7 @@
 				to find articles based on keyword(s).</span> </div>
 <!--
             <ul class="actions">
-				<li><a href="#" class="button">Etiam posuere</a></li>
+				<li><a href="https://developer.nytimes.com" class="button">NY Times APIs</a></li>
 			</ul>
 -->
 		</div>
@@ -65,6 +65,9 @@
                     take a look at the developer <a href="https://www.developer.nytimes.com/faq">FAQ</a> and
                     <a href="https://www.developer.nytimes.com/tou">Terms of Use</a>.
                 </p>
+            <ul class="actions">
+                <li><a href="https://developer.nytimes.com" class="button">NY Times APIs</a></li>
+            </ul>
 
 <!--
 		<div id="three-column">
@@ -107,11 +110,11 @@
                 Be careful not to share your key with anyone or make it public as it identifies you as the developer.</p>
 		</div>
 
-<!--
+
         <ul class="actions">
-			<li><a href="#" class="button">Etiam posuere</a></li>
+			<li><a href="https://developer.nytimes.com/signup" class="button">Get API Key</a></li>
 		</ul>
--->
+
 	</div>
     <!------------ USING THE CONSOLE TOOL SECTION ------------->
     <div id="page" class="container">
@@ -139,11 +142,11 @@
             Times API! I recommend tinkering with this useful tool to get an idea of the types of queries you can make and
             verify that the responses generated are what you want. In the next few sections we'll get into the nitty gritty
             of how the query works and interpreting the response. </p>
-<!--
+
         <ul class="actions">
-			<li><a href="#" class="button">Etiam posuere</a></li>
+			<li><a href="https://developer.nytimes.com/article_search_v2.json#/Console" class="button">Console</a></li>
 		</ul>
--->
+
 	</div>
     <!------------ QUERY/GET REQUEST SECTION ------------->
     <div id="featured">
@@ -183,6 +186,9 @@
                     <li> Now you've created a valid GET request!  You can either use the Javascript sample code to send the request or simply
                          paste your query string into a browser. In the next section we'll look at the NY Time response we receive back from our request.</li>
                 </ul>
+            <ul class="actions">
+                <li><a href="https://developer.nytimes.com/article_search_v2.json#/Console" class="button">Try It</a></li>
+            </ul>
         </div>
     </div>
     <!------------ INTERPRETING THE RESPONSE SECTION ------------->
@@ -256,8 +262,8 @@
                 make this easier to read.  In fact, let's go even further and say we only want to print out the headlines of
                 the articles that are returned.</p>
             <iframe width="100%" height="300" src="//jsfiddle.net/keishPi/gu7xey5m/embedded/js,html/dark/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
-            <p> We know the articles are going to be in the <code>data.response.docs section</code> so we made a variable
-                "data" to store that path. We also added an element to our HTML with an ID of 'headline', then assigned that
+            <p> We know the articles are going to be in the <code>data.response.docs </code>section so we made a variable
+                called "data" to store that path. We also added an element to our HTML with an ID of 'headline', then assigned that
                 variable's textContent property to <code>articles[0].headline.main</code>.</p>
             <img src="Images/headlineForm.png" width="100%"><br>
             <p> For the sake of variety this time I searched "Hawaii".  This gives us the headline, but only of the first article.
@@ -270,6 +276,20 @@
             <img src="Images/hawaiiHeadlineSnippet.png" width="100%"><br>
         </div>
     </div>
+    <!------------ IN SUMMARY SECTION ------------->
+    <div id="page" class="container">
+        <div class="title">
+            <h2>In Summary...</h2>
+            <span class="byline">Oh the Possibilities!</span> </div>
+        <p> Whew!  In this Getting Started Guide for the NY Times Article Search API, we covered how to request an API Key,
+            how to use the NY Times Console Tool, how to build a query string and submit it both as a URL and as a Javascript
+            GET request and how to interpret the JSON response. We capped it all off by showing several examples showing
+            different ways to send the request and also added a form so a user can input their own search parameters and
+            receive a nicely formatted response. </p>
+        <p> We've only just scratched the surface of what you can do with the NY Times API. Feel free to check out their
+            different APIs and experiment!</p>
+    </div>
+
 </div>
 
 <div id="copyright" class="container">
