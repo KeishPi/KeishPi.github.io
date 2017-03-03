@@ -18,7 +18,7 @@
 	<div id="header-wrapper">
 	<div id="header" class="container">
 		<div id="logo">
-			<h1 <a href="#">The New York Times API</a> </h1>
+			<h1 <a href="https://nytimes.com">The New York Times API</a></h1>
 		</div>
 <!--
         <div id="menu">
@@ -36,6 +36,7 @@
 	<div id="banner">
 		<div class="container">
 			<div class="title">
+                <!-- <img src="Images/logo2.png"><br> -->
 				<h2>Article Search</h2>
 				<span class="byline">This tutorial will teach you how to use the NY Times Article Search API
 				to find articles based on keyword(s).</span> </div>
@@ -62,8 +63,8 @@
                     you can submit a query and the API returns a JSON list of articles that match your query.<br>
                     This tutorial is for those who have a basic knowledge of HTML and Javascript.  If not, don't fear!
                     There are many tutorials out there that will get you up to speed quickly.  Before we dive in,
-                    take a look at the developer <a href="https://www.developer.nytimes.com/faq">FAQ</a> and
-                    <a href="https://www.developer.nytimes.com/tou">Terms of Use</a>.
+                    take a look at the developer <a href="https://developer.nytimes.com/faq">FAQ</a> and
+                    <a href="https://developer.nytimes.com/tou">Terms of Use</a>.
                 </p>
             <ul class="actions">
                 <li><a href="https://developer.nytimes.com" class="button">NY Times APIs</a></li>
@@ -99,17 +100,18 @@
 			<div class="title">
 				<h2>Getting Started</h2>
 				<span class="byline">Requesting an API Key</span> </div>
-			<p> The use the NY Times API in your application you must first get an
+			<p> The use the NY Times API in your application and make requests you must first get an
                 <a href="https://developer.nytimes.com/signup">API key</a>.
                 This key allows the NY Times to monitor usage levels and make sure developers are complying with
                 the Terms of Use.  Note that if you plan on using more than one of the NY Times APIs, you'll need to
                 request a separate key for each one. We will use this API key in each query we make (more on this later).</p><br>
             <img src="Images/API_Key.png"><br>
-			<p>After completing and submitting the form above you should receive an email containing your very own API key!
+			<p> After completing and submitting the form above you should receive an email containing your very own API key!
                 You are allowed 1,000 API calls per day and 5 calls per second, which should be more than enough for our needs.
-                Be careful not to share your key with anyone or make it public as it identifies you as the developer.</p>
+                Be careful not to share your key with anyone or make it public as it identifies you as the developer.
+                You can read more about securing your key
+                <a href="http://billpatrianakos.me/blog/2016/02/15/securing-api-keys-in-a-javascript-single-page-app/">here</a>.</p>
 		</div>
-
 
         <ul class="actions">
 			<li><a href="https://developer.nytimes.com/signup" class="button">Get API Key</a></li>
@@ -122,8 +124,8 @@
 			<h2>Article Search API</h2>
 			<span class="byline">Using the Console Tool</span> </div>
 		<p> Each NY Times API features a nifty Console Tool that allows you to build a query, submit it, and inspect the resulting
-            response.  This is especially useful for novice programmers as it allows them to validate the query construction and
-            response before putting it in their code.</p>
+            response.  This is useful for novice and professional programmers as it allows them to validate the query construction
+            and response before putting it in their code.</p>
         <p> To get to the Console, click on the Article Search API <a href="https://developer.nytimes.com">here</a>:</p>
         <img src="Images/ArticleSearchClick.png" width="100%"><br>
         <p> Then click on "Console" in the upper right corner:</p>
@@ -154,8 +156,8 @@
             <div class="title">
                 <h2>What's in a Query?</h2>
                 <span class="byline">Understanding the GET Request</span> </div>
-            <p> Now that you've gotten your feet wet with the Console Tool and have an idea of what kind of queries you can make,
-                let's try to understand what's happening under the hood.</p>
+            <p> Now that you've gotten your feet wet with the Console Tool and have an idea of what kind of queries you can make
+                and the responses you get in return, let's try to understand what's happening under the hood.</p>
             <p> Remember the "Sample Code" section we skipped over in the last section?  Let's take a look at that now.<br>
                 Continuing our previous example, let's say we just want to do a simple query for all articles that contain the
                 word "feminism" and we want to sort our results by newest publication date (the default is to sort by relevance to
@@ -184,7 +186,9 @@
                     <li> The rest of the sample code simply says that we are making a GET request and once we get the results back from the
                          NY Times server, we want to display it to the screen. </li>
                     <li> Now you've created a valid GET request!  You can either use the Javascript sample code to send the request or simply
-                         paste your query string into a browser. In the next section we'll look at the NY Time response we receive back from our request.</li>
+                         paste your query string into a browser. I recommend the latter for instant gratification, but if
+                         you don't quite grasp the Javascript yet, don't worry we'll go over another example later.
+                         In the next section we'll look at the NY Time response we receive back from our request.</li>
                 </ul>
             <ul class="actions">
                 <li><a href="https://developer.nytimes.com/article_search_v2.json#/Console" class="button">Try It</a></li>
@@ -227,7 +231,7 @@
         <p> Now if we expand the docs tree we can see it's properties.  Say I want to access the headline property in docs so I can display or
             print it.  Then in Javascript I would use dot notation to access the values like this: <code>response.docs.articles[0].headline.main</code>.
             This just references each "tree" in our object to get at the property we want.  In the next section we'll walk through an example to
-            tie everything together. </p>
+            tie everything together and do something useful with our response. </p>
         <img src="Images/docsProperties.png" width="100%"><br>
     </div>
     <!------------ EXAMPLE SECTION ------------->
@@ -241,33 +245,40 @@
                 Though convenient for one request, it's not very practical if you want to make several requests.
                 We showed a glimpse of some Javascript that would send the request for you instead, so let's expand on that. </p>
             <p> This is a GET request in Javascript, similar to the one we saw in the previous section.  Feel free to use
-                either one, I just think the one below is more readable than the Console Javascript.  You can see we save
-                each component of the GET request into a variable, so you don't need to interpret a long query string each
-                time you want to change something.  This type of request (called a synchronous request) waits for the request
+                either one, I just think the one below is more readable than the Console Javascript. <br>
+                The first line <code>var req = new XMLHttpRequest()</code> creates an instance of an XMLHttpRequest object
+                through which we make HTTP calls to the NY Times API. Then you can see we save each component of the request
+                into variables, so you don't need to interpret a long query string each time you want to change something.
+                This line: <code>req.open("GET", endpoint + "q=" + searchTerm + "sort=" + sort + "&api-key=" + apiKey, false)</code>
+                opens a connection to the resource.  The first parameter specifies the request type (GET), the second is the
+                query, and the "false" means that it is a a synchronous request.  A synchronous request waits for the request
                 to complete before doing anything with the response. But this by itself still doesn't do much- it simply logs
                 to the console the JSON object response from the API.  If you wanted to change the search parameters you would
                 need to manually change the code each time. </p>
             <iframe width="100%" height="300" src="//jsfiddle.net/keishPi/py0qmgxv/embedded/js/dark/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
             <p> Now let's go a step further and make a simple form that the user can use to enter their own search parameters, submit, then
                 receive results from the API. </p>
-            <iframe width="100%" height="300" src="//jsfiddle.net/sn71fkkd/embedded/js,html/dark/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>            <p> Let's break down the code above.  We're still making a request object as before, but we also register a listener
-                on the request's load event. This allows us to make an asynchronous request.  Note that we also changed the
+            <iframe width="100%" height="300" src="//jsfiddle.net/sn71fkkd/embedded/js,html/dark/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+            <p> Let's break down the code above.  We're still making a request object as before, but we also register a listener
+                on the request's load event with <code>document.addEventListener('DOMContentLoaded', bindButtons)</code>.
+                This allows us to make an asynchronous request.  Note that we also changed the
                 last parameter of the <code>req.open</code> line from false to true.  In the first example, our code
-                would pause and wait for the request to finish.  With an asynchronous request we can continue to do work while
-                we wait for that function to return.  We also added a second event listener to the forms submit button. So
-                when the user clicks submit that code is executed.  This is what the webpage looks like after clicking submit: </p>
+                would pause and wait for the request to finish before doing anything else.  With an asynchronous request we
+                can continue to do work while we wait for that function to return.  We also added a second event listener
+                to the forms submit button. So when the user clicks submit that code is executed.  This is what the webpage
+                looks like after clicking submit: </p>
             <img src="Images/GETUserForm.png" width="100%"><br>
             <p> This is a bit better, but we still display the response in JSON format, which isn't very reader friendly.  Remember the
                 dot notation structure we referenced in the last section to access the properties we wanted?  Let's use that to
                 make this easier to read.  In fact, let's go even further and say we only want to print out the headlines of
                 the articles that are returned.</p>
             <iframe width="100%" height="300" src="//jsfiddle.net/keishPi/gu7xey5m/embedded/js,html/dark/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
-            <p> We know the articles are going to be in the <code>data.response.docs </code>section so we made a variable
-                called "data" to store that path. We also added an element to our HTML with an ID of 'headline', then assigned that
-                variable's textContent property to <code>articles[0].headline.main</code>.</p>
+            <p> We know the articles are always going to be in the <code>data.response.docs</code> section so we made a variable
+                called "data" to store that path. We also added an HTML element with an ID of 'headline', then assigned that
+                variable's textContent property to <code>articles[0].headline.main</code>. </p>
             <img src="Images/headlineForm.png" width="100%"><br>
             <p> For the sake of variety this time I searched "Hawaii".  This gives us the headline, but only of the first article.
-                Remember "articles" is an array, so by using bracket notation we are only accessing the first article by saying
+                Why?  Remember <code>articles</code> is an array, so by using bracket notation we are only accessing the first article by saying
                 <code>articles[0]</code>.  Well that's great, but we want all the headlines right? So one more step!  Let's
                 get all the headlines returned and let's also print a snippet from each article. </p>
             <iframe width="100%" height="300" src="//jsfiddle.net/keishPi/f0pg1hzr/embedded/js,html/dark/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
@@ -281,19 +292,19 @@
         <div class="title">
             <h2>In Summary...</h2>
             <span class="byline">Oh the Possibilities!</span> </div>
-        <p> Whew!  In this Getting Started Guide for the NY Times Article Search API, we covered how to request an API Key,
+        <p> In this Getting Started Guide for the NY Times Article Search API, we covered how to request an API Key,
             how to use the NY Times Console Tool, how to build a query string and submit it both as a URL and as a Javascript
             GET request and how to interpret the JSON response. We capped it all off by showing several examples showing
             different ways to send the request and also added a form so a user can input their own search parameters and
             receive a nicely formatted response. </p>
         <p> We've only just scratched the surface of what you can do with the NY Times API. Feel free to check out their
-            different APIs and experiment!</p>
+            different APIs and experiment!  </p>
     </div>
-
 </div>
 
 <div id="copyright" class="container">
-	<p>&copy; Untitled. All rights reserved. | Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
+	<p>&copy; Keisha Arnold. All rights reserved. | Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
+    <p>arnoldke@oregonstate.edu</p>
 </div>
 </body>
 </html>

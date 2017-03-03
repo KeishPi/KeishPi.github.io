@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="acce67aa-49af-4eac-8b7b-74a92aab97e4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/default.css" afterPath="$PROJECT_DIR$/default.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -24,8 +24,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="189" column="113" lean-forward="false" selection-start-line="189" selection-start-column="113" selection-end-line="189" selection-end-column="113" />
+            <state relative-caret-position="158">
+              <caret line="299" column="92" lean-forward="true" selection-start-line="299" selection-start-column="92" selection-end-line="299" selection-end-column="92" />
               <folding />
             </state>
           </provider>
@@ -68,8 +68,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="35" />
-    <option name="y" value="83" />
+    <option name="x" value="23" />
+    <option name="y" value="128" />
     <option name="width" value="1249" />
     <option name="height" value="560" />
   </component>
@@ -201,15 +201,15 @@
       <updated>1487716955616</updated>
       <workItem from="1487716957213" duration="12064000" />
       <workItem from="1487732404332" duration="9803000" />
-      <workItem from="1487757529165" duration="31499000" />
+      <workItem from="1487757529165" duration="37423000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53366000" />
+    <option name="totallyTimeSpent" value="59290000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="35" y="83" width="1249" height="560" extended-state="0" />
+    <frame x="23" y="128" width="1249" height="560" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16973579" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -321,10 +321,15 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Images/logo2.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="189" column="113" lean-forward="false" selection-start-line="189" selection-start-column="113" selection-end-line="189" selection-end-column="113" />
+        <state relative-caret-position="158">
+          <caret line="299" column="92" lean-forward="true" selection-start-line="299" selection-start-column="92" selection-end-line="299" selection-end-column="92" />
           <folding />
         </state>
       </provider>
